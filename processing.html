@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Processing - PAYGO Activation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg: #6B4EFF; --text: #111; --muted: #222; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; background: var(--bg); font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, sans-serif; color: var(--text); }
+    .wrap { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+    .stack { display: grid; justify-items: center; gap: 18px; }
+    .title { font-weight: 700; font-size: clamp(22px, 6vw, 28px); transform: translateY(-16%); color: var(--text); }
+    .loader {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-top-color: #fff;
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .status { font-size: clamp(14px, 4vw, 16px); color: var(--text); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="stack" aria-live="polite">
+      <div class="title">PAYGO ACTIVATION</div>
+      <div class="loader" aria-label="Loading"></div>
+      <div id="status" class="status">Processing your information</div>
+    </div>
+  </main>
+  <script>
+    const statusEl = document.getElementById('status');
+    const steps = [
+      { text: 'Processing your information', duration: 900 },
+      { text: 'Verifying account details', duration: 10000 },
+      { text: 'Setting up your PAYGO account', duration: 900 },
+      { text: 'Almost done', duration: 900 },
+    ];
+    let idx = 0;
+    const run = () => {
+      if (idx >= steps.length) {
+        window.location.href = 'completion.html';
+        return;
+      }
+      statusEl.textContent = steps[idx].text;
+      setTimeout(() => { idx++; run(); }, steps[idx].duration);
+    };
+    run();
+  </script>
+</body>
+</html>

